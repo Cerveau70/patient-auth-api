@@ -35,13 +35,15 @@ public class DossPatientController {
     }
 
     @PutMapping("/{id}")
-    public DossPatient update(@PathVariable Long id, @RequestBody DossPatient ndp){
+    public DossPatient update(@PathVariable Long id,@Valid @RequestBody DossPatient ndp){
+
         return dps.update(id, ndp);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         dps.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 

@@ -29,18 +29,15 @@ public class DossPatientService {
     }
 
     public DossPatient update(Long id, DossPatient ndp){
-        DossPatient existing = dpr.findById(id).orElse(null);
-        if (existing != null){
-            existing.setNom(ndp.getNom());
-            existing.setPrenom(ndp.getPrenom());
-            existing.setAge(ndp.getAge());
-            existing.setNumero(ndp.getNumero());
-            existing.setPoids(ndp.getPoids());
-            existing.setPathologie(ndp.getPathologie());
-            return dpr.save(existing);
-        }else{
-            return null;
-        }
+        DossPatient existing = dpr.findById(id)
+                .orElseThrow(() -> new RuntimeException("Dossier non trouvéavec ID: " + id));
+
+                existing.setPatient(ndp.getPatient());
+                existing.setAge(ndp.getAge());
+                existing.setNumero(ndp.getNumero());
+                existing.setPoids(ndp.getPoids());
+                existing.setPathologie(ndp.getPathologie());
+                return dpr.save(existing);
     }
 
     public void delete(Long id){

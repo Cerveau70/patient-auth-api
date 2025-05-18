@@ -13,13 +13,10 @@ public class DossPatient {
     @Column(name = "dossier_patientId", updatable = false, nullable = false)
     private Long id;
 
-    @NotBlank(message = "le nom est obligatoire")
-    @Column(name = "nom_patient")
-    private String nom;
+    @ManyToOne
+    @JoinColumn(name = "patientId")
+    private Patient patient;
 
-    @NotBlank(message = "le prenom est obligatoire")
-    @Column(name = "prenom_patient")
-    private String prenom;
 
     @Min(value = 0, message = "l'âge ne peut pas être inférieure à 0")
     @Column(name = "age_patient")
@@ -41,10 +38,9 @@ public class DossPatient {
         super();
     }
 
-    public DossPatient(Long id, String nom, String prenom, int age, int poids, String numero, String pathologie ){
+    public DossPatient(Long id, Patient patient, int age, int poids, String numero, String pathologie ){
         this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
+        this.patient = patient;
         this.age = age;
         this.poids = poids;
         this.numero = numero;
@@ -59,21 +55,14 @@ public class DossPatient {
         this.id = id;
     }
 
-    public String getNom(){
-        return nom;
+    public Patient getPatient(){
+        return patient;
     }
 
-    public void setNom(String nom){
-        this.nom = nom;
+    public void setPatient(Patient patient){
+        this.patient = patient;
     }
 
-    public String getPrenom(){
-        return prenom;
-    }
-
-    public void setPrenom(String prenom){
-        this.prenom = prenom;
-    }
 
     public int getAge(){
         return age;
@@ -109,7 +98,7 @@ public class DossPatient {
 
     @Override
     public String toString(){
-        return "Le dossier du patient: "+ getNom() +" "+getPrenom()+"qui souffre de : "
+        return "Le dossier du patient N: "+ getPatient() + "qui souffre de : "
                 +getPathologie()+"pour un poids de " + getPoids()+" "+"et "+getAge()+" "+"ans";
     }
 

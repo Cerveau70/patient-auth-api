@@ -33,7 +33,7 @@ public class AuthService {
     public String login(LoginRequest request){
 
         Patient patient = patientRepository.findByNom(request.getNom())
-                .orElseThrow(()->new RuntimeException("Utilisateurntrouvable"));
+                .orElseThrow(()->new RuntimeException("Utilisateur introuvable"));
 
         if (!patient.getMdp().equals(request.getMdp())){
             throw new RuntimeException("Mot de passe introuvable");
